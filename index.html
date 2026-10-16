@@ -1049,29 +1049,33 @@ document.addEventListener("keydown", (event) => {
     closeMenu();
   }
 });
-
-
-
-/* ページを開いたらタイトル演出を開始 */
-window.addEventListener("DOMContentLoaded", () => {
-  const hero = document.querySelector(".hero");
-  if (!hero) return;
-
-  hero.classList.add("intro-motion");
-});
-
-
 </script>
 
 <script>
 document.getElementById("preview-form").addEventListener("submit", function(e) {
   e.preventDefault();
 
-  if (document.getElementById("preview-password").value === "preview2026") {
-    document.getElementById("preview-gate").style.display = "none";
+  const password = document.getElementById("preview-password");
+  const gate = document.getElementById("preview-gate");
+  const error = document.getElementById("preview-error");
+
+  if (password.value === "preview2026") {
+    gate.style.display = "none";
+    document.body.style.overflow = "";
+    error.textContent = "";
+
+    // ページの先頭に戻す
+    window.scrollTo(0, 0);
+
+    // タイトル演出を再スタート
+    const hero = document.querySelector(".hero");
+    if (hero) {
+      hero.classList.remove("intro-motion");
+      void hero.offsetWidth;
+      hero.classList.add("intro-motion");
+    }
   } else {
-    document.getElementById("preview-error").textContent =
-      "合言葉が違います。もう一度入力してください。";
+    error.textContent = "合言葉が違います。もう一度入力してください。";
   }
 });
 </script>
